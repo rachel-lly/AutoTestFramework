@@ -1,8 +1,7 @@
-package com.example.lib;
+package com.example.lib.setting;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 

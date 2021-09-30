@@ -2,25 +2,22 @@ package com.example.lib;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-
+import com.example.lib.setting.ExtendWatcher;
+import com.example.lib.setting.Util;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestWatcher;
-
 import java.net.MalformedURLException;
-
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.touch.offset.PointOption;
+import static com.example.lib.config.Config.MAIN_ACTIVITY;
 
 public class JumpWXFriends{
     private AndroidDriver mDriver; // 测试手机的控制者
     private static ExtentReports mExtent;
-    public static final String MAIN_ACTIVITY = "com.tencent.wework.launch.WwMainActivity";
+
     
     @BeforeClass
     public static void beforeClass(){ // 在类初始化前初始化报告生成器
@@ -39,7 +36,7 @@ public class JumpWXFriends{
     @Before
     public void setUp() throws MalformedURLException {
         // 上面的与服务器链接的初始化操作 
-        mDriver = new Device().initDriver();
+        mDriver = new Util().initDriver();
 
     }
     

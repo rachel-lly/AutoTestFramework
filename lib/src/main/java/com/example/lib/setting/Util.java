@@ -1,7 +1,9 @@
-package com.example.lib;
+package com.example.lib.setting;
 
+import com.example.lib.config.Config;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -11,21 +13,35 @@ public class Util {
     /**
      * 获取Appium配置
      */
-//    public static DesiredCapabilities getDesiredCapabilities() {
-//        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-//        desiredCapabilities.setCapability("platformName", Config.PLATFORM_NAME);
-//        desiredCapabilities.setCapability("appPackage", Config.APP_PACKAGE);
-//        desiredCapabilities.setCapability("deviceName", Config.DEVICE_NAME);
-//        desiredCapabilities.setCapability("platformVersion", Config.PLATFORM_VERSION);
-//        desiredCapabilities.setCapability("appActivity", Config.APP_ACTIVITY);
-//        desiredCapabilities.setCapability("resetKeyboard", true);
-//        desiredCapabilities.setCapability("noReset", true);
-//        desiredCapabilities.setCapability("automationName", "UiAutomator2");
-//        desiredCapabilities.setCapability("ensureWebviewsHavePages", true);
-//        return desiredCapabilities;
-//    }
+    private AndroidDriver driver;
 
-    static String getMarkTime() {
+    public AndroidDriver initDriver() {
+        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        desiredCapabilities.setCapability("platformName", Config.PLATFORM_NAME);
+        desiredCapabilities.setCapability("deviceName", Config.DEVICE_NAME);
+        desiredCapabilities.setCapability("noSign", true);
+        desiredCapabilities.setCapability("autoGrantPermissions", true);
+        desiredCapabilities.setCapability("appPackage", Config.APP_PACKAGE);
+        desiredCapabilities.setCapability("appActivity", Config.APP_ACTIVITY);
+        desiredCapabilities.setCapability("platformVersion", Config.PLATFORM_VERSION);
+        desiredCapabilities.setCapability("noReset", true);
+        desiredCapabilities.setCapability("automationName", "UiAutomator2");
+
+        desiredCapabilities.setCapability("resetKeyboard", true);
+
+
+        desiredCapabilities.setCapability("ensureWebviewsHavePages", true);
+// 这里Url为服务端url driver即为服务端链接的移动设备驱动者
+        try {
+            driver = new AndroidDriver(new URL(Config.REMOTE_URL), desiredCapabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return driver;
+    }
+
+
+    public static String getMarkTime() {
         System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
         Date date = new Date();
@@ -33,7 +49,7 @@ public class Util {
         return dateStr.replace(" ", "_");
     }
 
-    static String getMarkDate() {
+    public static String getMarkDate() {
         System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
