@@ -57,11 +57,11 @@ public class Util {
     }
 
     /**
-     * 线程等待timeSecond 秒
+     * 线程等待time ms
      */
-    public static void sleep(float timeSecond) {
+    public static void sleep(long time) {
         try {
-            Thread.sleep((long) (timeSecond * 1000));
+            Thread.sleep(time);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
