@@ -10,6 +10,11 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestWatcher;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.time.Duration;
 
@@ -59,15 +64,23 @@ public class TestQiYeWeiXin {
         mDriver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.view.ViewGroup/android.widget.RelativeLayout[2]/android.widget.RelativeLayout/android.widget.TextView").click();
 
 
-        Util.sleep(2000);
+        Util.sleep(500);
+        scroll();
 
-        mDriver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[2]/android.widget.RelativeLayout/android.widget.ListView/android.widget.RelativeLayout[4]/android.widget.RelativeLayout").click();
+        Util.sleep(2000);
+        mDriver.findElementByAndroidUIAutomator("new UiSelector().text(\"添加成员\")").click();
 
 
         Util.sleep(2000);
         mDriver.findElementById("com.tencent.wework:id/d7z").click();
+
+
         Util.sleep(2000);
-        mDriver.findElementById("com.tencent.wework:id/izu").click();
+        if(isJudgingElement(mDriver,By.id("com.tencent.wework:id/ana"))){
+            Util.sleep(2000);
+            mDriver.findElementById("com.tencent.wework:id/izu").click();
+        }
+
         Util.sleep(2000);
         mDriver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout[1]/android.widget.RelativeLayout/android.widget.EditText").click();
         Util.sleep(2000);
@@ -164,6 +177,32 @@ public class TestQiYeWeiXin {
         Util.sleep(3000);
         mDriver.findElementById("com.tencent.wework:id/ana").click();
         Util.sleep(2000);
+
+    }
+
+    /**
+     * 判断某个元素是否存在
+     */
+    public boolean isJudgingElement(AndroidDriver driver, By by) {
+        try {
+            driver.findElement(by);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void scroll() {
+        Dimension dimensions = mDriver.manage().window().getSize();
+
+        int Startpoint = (int) (dimensions.getHeight() * 0.5);
+
+        int scrollEnd = (int) (dimensions.getHeight() * 0.2);
+
+        new TouchAction(mDriver).press(PointOption.point(0, Startpoint))
+                .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
+                .moveTo(PointOption.point(0, scrollEnd)).release().perform();
 
     }
 }
