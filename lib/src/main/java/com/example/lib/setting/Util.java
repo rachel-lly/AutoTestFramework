@@ -25,12 +25,12 @@ public class Util {
         desiredCapabilities.setCapability("appActivity", Config.APP_ACTIVITY);
         desiredCapabilities.setCapability("platformVersion", Config.PLATFORM_VERSION);
         desiredCapabilities.setCapability("noReset", true);
-        desiredCapabilities.setCapability("automationName", "UiAutomator2");
+
 
         desiredCapabilities.setCapability("resetKeyboard", true);
-
-
         desiredCapabilities.setCapability("ensureWebviewsHavePages", true);
+        desiredCapabilities.setCapability("skipDeviceInitialization",true);
+        desiredCapabilities.setCapability("dontStopAppOnRese",true);
 // 这里Url为服务端url driver即为服务端链接的移动设备驱动者
         try {
             driver = new AndroidDriver(new URL(Config.REMOTE_URL), desiredCapabilities);
