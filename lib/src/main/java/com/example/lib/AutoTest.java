@@ -21,7 +21,7 @@ import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import static com.example.lib.config.Config.MAIN_ACTIVITY;
 
-public class TestQiYeWeiXin {
+public class AutoTest {
     private AndroidDriver driver; // 测试手机的控制者
     private static ExtentReports mExtent;
 
@@ -53,8 +53,8 @@ public class TestQiYeWeiXin {
        driver.quit();
     }
     
-    @Test
-    public void testQiYeWeiXin() throws InterruptedException {
+    @org.junit.Test
+    public void test() throws InterruptedException {
         Util.waitActivity(MAIN_ACTIVITY, 6, driver);
 
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
