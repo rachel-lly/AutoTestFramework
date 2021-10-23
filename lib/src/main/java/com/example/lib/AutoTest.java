@@ -14,7 +14,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import java.net.MalformedURLException;
 import java.time.Duration;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;
@@ -57,65 +60,60 @@ public class AutoTest {
     public void test() throws InterruptedException {
         Util.waitActivity(MAIN_ACTIVITY, 6, driver);
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
 
-        driver.findElementByXPath("//*[@resource-id = 'com.tencent.wework:id/f1r' and @text = '通讯录' ]").click();
+        driver.findElementByXPath("//*[@resource-id = 'com.tencent.wework:id/f1r' and @text = '工作台' ]").click();
+
+        //顶部
+        scrollToxy(302,151,302,1152);
+
+        //内部管理
+        scrollToxy(302,1146,302,200);
+
+
+        driver.findElementByXPath("//*[@resource-id = 'com.tencent.wework:id/fru' and @text = '审批' ]").click();
+
+        Util.sleep(10000);
+
+        scrollToxy(302,151,302,1152);
+
+        scrollToxy(36,700,36,200);
+
+        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"请假\")").click();
+
+
+        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"请假类型\")").click();
+        scrollToxy(223,808,223,1028);
+        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"确定\")").click();
+
+
+
+        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"开始时间\")").click();
+        scrollToxy(229,752,229,985);
+        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"确定\")").click();
+
+        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"结束时间\")").click();
+        scrollToxy(229,992,229,670);
+        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"确定\")").click();
+
 
         Util.sleep(5000);
+        //查看时长明细
+        driver.findElementByXPath("//*[@text = '当前请假时长为自动计算，查看时长明细']").click();
+        //返回
+        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout[3]/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View/android.view.View[1]/android.view.View").click();
+
+        Util.sleep(1000);
+        //请假事由
+        driver.findElementByXPath("//*[@text = '请假事由']").click();
+        MobileElement el1 = (MobileElement) driver.findElementByXPath("//*[@text = '请输入请假事由']");
+        el1.click();
+        Util.sleep(1000);
+        el1.sendKeys("身体不适");
         scroll();
 
-        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"添加成员\")").click();
-        driver.findElementById("com.tencent.wework:id/d7z").click();
-        if(isJudgingElement(driver,By.id("com.tencent.wework:id/ana"))){
-            driver.findElementById("com.tencent.wework:id/izu").click();
-        }
 
-        driver.findElementByXPath("//*[@resource-id = 'com.tencent.wework:id/bf_' and @text = '必填' ]").sendKeys("张三");
-        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout[2]/android.widget.RelativeLayout/android.widget.EditText").sendKeys("1234455");
-
-        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout[3]/android.widget.RelativeLayout/android.widget.EditText").sendKeys("三三");
-        driver.findElementByXPath("//*[@resource-id = 'com.tencent.wework:id/bg1' and @text = '男' ]").click();
-        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.ListView/android.widget.RelativeLayout[2]/android.widget.RelativeLayout/android.widget.RelativeLayout").click();
-        driver.findElementById("com.tencent.wework:id/ge4").sendKeys("13560959999");
-        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout[6]/android.widget.RelativeLayout/android.widget.EditText").sendKeys("3356569");
-
-
-        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout[7]/android.widget.RelativeLayout/android.widget.EditText").sendKeys("985684449@qq.com");
-        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout[8]/android.widget.RelativeLayout/android.widget.LinearLayout").click();
-
-        driver.findElementById("com.tencent.wework:id/kq").sendKeys("腾讯大厦");
-
-        driver.findElementByXPath("//*[@resource-id = 'com.tencent.wework:id/j8j' and @text = '腾讯大厦' ]").click();
-        driver.findElementById("com.tencent.wework:id/j05").click();
-
-
-        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout[9]/android.widget.RelativeLayout/android.widget.EditText").sendKeys("清洁工");
-        driver.findElementById("com.tencent.wework:id/e5u").click();
-
-        new TouchAction(driver).press(PointOption.point(308, 1270))
-                .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
-                .moveTo(PointOption.point(308, 180)).release().perform();
-
-
-
-        driver.findElementByXPath("//*[@resource-id = 'com.tencent.wework:id/bg1' and @text = '设置部门' ]").click();
-        driver.findElementById("com.tencent.wework:id/hmy").click();
-
-        driver.findElementByXPath("//*[@resource-id = 'com.tencent.wework:id/bg1' and @text = '普通成员' ]").click();
-        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.ListView/android.widget.RelativeLayout[2]/android.widget.RelativeLayout/android.widget.RelativeLayout").click();
-
-        driver.findElementById("com.tencent.wework:id/k63").click();
-        driver.findElementById("com.tencent.wework:id/c0x").click();
-        driver.findElementById("com.tencent.wework:id/d6p").click();
-
-        driver.findElementById("com.tencent.wework:id/e6i").sendKeys("清洁大叔");
-        driver.findElementById("com.tencent.wework:id/j05").click();
-
-        new TouchAction(driver).press(PointOption.point(308, 1270))
-                .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
-                .moveTo(PointOption.point(308, 180)).release().perform();
-
-        driver.findElementById("com.tencent.wework:id/ana").click();
+        driver.findElementByXPath("//*[@class = 'android.widget.Button']").click();
 
     }
 
@@ -142,5 +140,11 @@ public class AutoTest {
                 .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
                 .moveTo(PointOption.point(0, scrollEnd)).release().perform();
 
+    }
+
+    public void scrollToxy(int fromX,int fromY,int toX,int toY){
+        new TouchAction(driver).press(PointOption.point(fromX, fromY))
+                .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
+                .moveTo(PointOption.point(toX, toY)).release().perform();
     }
 }
