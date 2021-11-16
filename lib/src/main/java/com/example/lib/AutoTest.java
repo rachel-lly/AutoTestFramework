@@ -8,15 +8,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.TestWatcher;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import java.net.MalformedURLException;
 import java.time.Duration;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
@@ -57,64 +54,48 @@ public class AutoTest {
     }
     
     @org.junit.Test
-    public void test() throws InterruptedException {
+    public void test() {
         Util.waitActivity(MAIN_ACTIVITY, 6, driver);
 
         driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
 
-        driver.findElementByXPath("//*[@resource-id = 'com.tencent.wework:id/f1r' and @text = '工作台' ]").click();
+        driver.findElementByXPath("//*[@resource-id = 'com.tencent.wework:id/f02' and @text = '工作台' ]").click();
 
         //顶部
-        scrollToxy(302,151,302,1152);
+        scrollToxy(302,121,302,1152);
 
-        //内部管理
+        //日程
         scrollToxy(302,1146,302,200);
+        scrollToxy(302,1139,302,590);
 
-
-        driver.findElementByXPath("//*[@resource-id = 'com.tencent.wework:id/fru' and @text = '审批' ]").click();
-
-        Util.sleep(10000);
-
-        scrollToxy(302,151,302,1152);
-
-        scrollToxy(36,700,36,200);
-
-        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"请假\")").click();
-
-
-        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"请假类型\")").click();
-        scrollToxy(223,808,223,1028);
-        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"确定\")").click();
-
-
-
-        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"开始时间\")").click();
-        scrollToxy(229,752,229,985);
-        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"确定\")").click();
-
-        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"结束时间\")").click();
-        scrollToxy(229,992,229,670);
-        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"确定\")").click();
-
+        driver.findElementByXPath("//*[@resource-id = 'com.tencent.wework:id/fpv' and @text = '日程' ]").click();
 
         Util.sleep(5000);
-        //查看时长明细
-        driver.findElementByXPath("//*[@text = '当前请假时长为自动计算，查看时长明细']").click();
-        //返回
-        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout[3]/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View/android.view.View[1]/android.view.View").click();
-
-        Util.sleep(1000);
-        //请假事由
-        driver.findElementByXPath("//*[@text = '请假事由']").click();
-        MobileElement el1 = (MobileElement) driver.findElementByXPath("//*[@text = '请输入请假事由']");
-        el1.click();
-        Util.sleep(1000);
-        el1.sendKeys("身体不适");
-        scroll();
+        driver.findElementById("com.tencent.wework:id/iwf").click();
 
 
-        driver.findElementByXPath("//*[@class = 'android.widget.Button']").click();
+        driver.findElementByXPath("//*[@resource-id = 'com.tencent.wework:id/bfd' and @text = '参与人' ]").click();
+        driver.findElementByXPath("//*[@text = '从群聊中选择' ]").click();
+        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.RelativeLayout/android.widget.ListView/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout").click();
+        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.FrameLayout[3]/android.widget.RelativeLayout/android.widget.ListView/android.widget.RelativeLayout[1]/android.widget.RelativeLayout/android.widget.RelativeLayout").click();
+        driver.findElementById("com.tencent.wework:id/hkb").click();
 
+
+        driver.findElementByXPath("//*[@resource-id = 'com.tencent.wework:id/bfd' and @text = '提醒我' ]").click();
+        driver.findElementByAndroidUIAutomator("new UiSelector().text(\"确定\")").click();
+
+        driver.findElementById("com.tencent.wework:id/bqv").click();
+
+        String text = "text";
+        driver.findElementById("com.tencent.wework:id/bqv").sendKeys(text);
+
+        driver.findElementById("com.tencent.wework:id/iv0").click();
+
+        Util.sleep(5000);
+        //结果断言
+        assert (driver.findElementById("com.tencent.wework:id/it3").getAttribute("text").equals(text)):"添加代办事件失败";
+
+        driver.findElementById("com.tencent.wework:id/ivv").click();
     }
 
     /**
